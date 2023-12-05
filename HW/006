@@ -1,1 +1,267 @@
+public class NoteBook{
+    private String manufacturer;
+    private String model;
+    private String displaySize;
+    private String displayResolution;
+    private int ramSize;
+    private int hddSize;
+    private String os;
+    private String color;
+    private double price;
 
+
+    public NoteBook (String manufacturer, String model, String displaySize, String displayResolution, 
+       int ramSize, int hddSize, String os, String color, double price) {
+        this.manufacturer = manufacturer;
+        this.model = model;
+        this.displaySize = displaySize;
+        this.displayResolution = displayResolution;
+        this.ramSize = ramSize;
+        this.hddSize = hddSize; 
+        this.os = os;
+        this.color = color;
+        this.price = price;
+     }
+
+     public String getManufacturer(){
+        return manufacturer;
+     }
+
+     public String setManufacturer(){
+        this.manufacturer = manufacturer;
+     }
+
+     public String getModel(){
+        return model;
+     }
+
+     public void setModel(String model){
+        this.model = model;
+     }
+
+     public String getDisplaySize(){
+        return displaySize;
+     }
+
+     public void SetDisplaySize(String displaySize){
+        this.displaySize = displaySize;
+     }
+
+     public String getDisplayResolution(String displayResolution){
+        this.displayResolution = displayResolution;
+     } 
+
+     public void setDisplayResolution(String displayResolution){
+        this.displayResolution = displayResolution;
+     }
+
+     public int getRamSize(){
+        return ramSize;
+     }
+
+     public void setRamSize(int ramSize){
+        this.ramSize = ramSize;
+     }
+
+     public int getHddSize(){
+        return hddSize;
+     }
+
+     public void setHddSize(int hddSize){
+        this.hddSize = hddSize;
+     }
+
+     public String getOs(){
+        return os;
+     }
+
+     public void setOs(String os){
+        this.os = os;
+     }   
+
+     public String getColor(){
+        return color;
+     }
+
+     public void setColor(String color){
+        this.color = color;
+     }
+
+     public double getPrice(){
+        return price;
+     }
+
+     public void setPrice(double price){
+        this.price = price;
+     }
+}
+
+// Создаем фильтр со статическим методом, который будет принимать список ноутбуков и критерий фильтрации и возвращать 
+// отфильтрованный список. Критерий будет передаваться в виде объекта Map.
+
+import java.util.ArrayList;
+import java.util.List;
+import Java.util.Map;
+import java.util.Scanner;
+
+public class NoteBookFilter{
+    public static List filter(List notebooks, Map filters){
+        List filteredNoteBooks = new ArrayList();
+        for (NoteBook notebook : notebooks){
+            boolean allFiltersMatch = true;
+            for (String filterKey : filters.keySet()){
+                Object filterValue = filter.get(filterKey);
+                switch (filterKey){
+                    case "manufacturer":
+                    if(!notebook.getManufacturer().equals(filterValue)){
+                        allFiltersMatch = false;
+                    }
+                    break;
+                    case "model":
+                    if(!notebook.getModel().equals(filterValue)){
+                        allFiltersMatch = false;
+                    }
+                    break;
+                    case "displaySize":
+                    if(!notebook.getDisplaySize().equals(filterValue)){
+                        allFiltersMatch = false;
+                    }
+                    break;
+                    case "displayResolution":
+                    if (!notebook.getDisplayResolution().equals(filterValue)){
+                        allFiltersMatch = false;
+                    }
+                    break;
+                    case "ramSize":
+                    if(!notebook.getRamSize().equals(filterValue)){
+                        allFiltersMatch = false;
+                    }
+                    break;
+                    case "hddSize":
+                    if(!notebook.getHddSize().equals(filterValue)){
+                        allFiltersMatch = false;
+                    }
+                    break;
+                    case "os":
+                    if(!notebook.getOs().equals(filterValue)){
+                        allFiltersMatch = false;
+                    }
+                    break;
+                    case "color":
+                    if(!notebook.getColor().equals(filterValue)){
+                        allFiltersMatch = false;
+                    }
+                    break;
+                    case "price":
+                    if(notebook.getPrice() != (double) filterValue){
+                        allFiltersMatch = false;
+                    }
+                    break;           
+                }
+                if(!allFiltersMatch){
+                    break;
+                }
+            }
+            if(allFiltersMatch){
+                filteredNoteBooks.add(notebook);
+            }
+        }
+        return filteredNoteBooks;
+    }
+}
+
+
+// Чтобы воспользоваться методом, создадим список ноутбуков и заполним объектами
+
+List notebooks = new ArrayList();
+notebooks.add(new NoteBook("GYGABYTE", "Eagle5090TI","32 дюйма", "1980x1240",
+ 32, 1024, "Windows 12", "Черный",320000));
+notebooks.add(new NoteBook("Asus", "ZenBook", "13 дюймов","1920x1080",
+ 16, 512, "Windows 10", "Серый", 20000));
+notebooks.add(new NoteBook("Apple", "MacBook Pro Plus Max SE 16", "12 дюймов", "920x800",
+ 8, 256, "macOS", "Фиолетовый космос", 5000000));
+
+// вызовем метод filter  с нужными критериями
+
+Map filters = new HashMap();
+System.out.println("Выберите критерий для фильтра");
+System.out.println("1 - Производитель");
+System.out.println("2 - Модель");
+System.out.println("3 - Размер дисплея");
+System.out.println("4 - Разрешение дисплея");
+System.out.println("5 - Объем ОЗУ");
+System.out.println("6 - Объем жесткого диска");
+System.out.println("7 - ОС");
+System.out.println("8 - Цвет");
+System.out.println("9 - Цена");
+
+Scanner scanner = new Scanner(System.in);
+int filterNumber = scanner.nextInt();
+String filterKey = "";
+switch (filterNumber){
+    case 1:
+    filterKey = "manufacturer";
+    System.out.println("Введите производителя: ");
+    String manufacturer = scanner.next();
+    filter.put(filterKey, manufacturer);
+    break;
+    case 2:
+    filterKey = "model";
+    System.out.println("Введите модель: ")
+    System model = scanner.next();
+    filters.put(filterKey, model);
+    break;
+    case 3:
+    filterKey = "displaySize";
+    System.out.println("Введите размер дисплея: ");
+    String displaySize = scanner.next();
+    filters.put(filterKey, displaySize );
+    break;
+    case 4:
+    filterKey = "displayResolution";
+    System.out.println("Введите разрешение дисплея: ");
+    String displayResolution = scanner.next();
+    filters.put(filterKey, displayResolution);
+    break;
+    case 5:
+    filterKey = "ramSize";
+    System.out.println("Введите объем ОЗУ: ");
+    String ramSize = scanner.nextInt();
+    filters.put(filterKey, ramSize);
+    break;
+    case 6:
+    filterKey = "hddSize";
+    System.out.println("Введите объем жесткого диска: ");
+    int hddSize = scanner.nextInt();
+    filter.put(filterKey, hddSize);
+    break;  
+    case 7:
+    filterKey = "os";
+    System.out.println("Введите ОС: ");
+    String os = scanner.next();
+    filters.put(filterKey, os);
+    break;
+    case 8:
+    filterKey = "color";
+    System.out.println("Введите цвет: ");
+    String color = scanner.next();
+    filters.put(filterKey, color);
+    break;
+    case 9:
+    filterKey = "price";
+    System.out.println("Введите цену: ");
+    double price = scanner.nextDouble();
+    filters.put(filterKey, price);
+    break;
+}
+
+List filteredNoteBooks = NoteBookFilter.filter(notebooks, filters);
+if (filteredNoteBooks.size() == 0){
+    System.out.println("Нет ноутбуков, удовлетворяющих запросу");
+} else{
+    for (NoteBook notebook : filteredNoteBooks){
+        System.out.println(notebook.getManufacturer() + "" + notebook.getModel() + "" + notebook.getDisplaySize() + ""
+         + notebook.getDisplayResolution() + "" + notebook.getRamSize() + "" + notebook.getHddSize() + ""
+         + notebook.getOs() + "" + notebook.getColor + "" + notebook.getPrice());
+    }
+}
